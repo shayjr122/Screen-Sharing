@@ -9,12 +9,12 @@
         mc:Ignorable="d"
         Title="MainWindow" WindowStyle="None"  Height="450" Width="800" Background="#FF2C2C2C" WindowState="{Binding WindowState, Mode=TwoWay}" MouseDown="DragWindow">
     <WindowChrome.WindowChrome>
-        <WindowChrome CaptionHeight="0"/>
+        <WindowChrome CaptionHeight="40"/>
     </WindowChrome.WindowChrome>
     <Window.DataContext>
         <viewModel:MainWindowViewModel/>
     </Window.DataContext>
-    <Grid>
+    <Grid WindowChrome.IsHitTestVisibleInChrome="True">
         <!--Tool Bar-->
     <StackPanel Orientation="Horizontal" VerticalAlignment="Top" Height="40" HorizontalAlignment="Right">
         <Button x:Name="Buttonla" Style="{StaticResource MaterialDesignFloatingActionMiniAccentButton}" Width="30" Height="30" Padding="0" Background="{x:Null}" BorderBrush="{x:Null}" Command="{Binding Minimize}" Foreground="#FFB52FBB">
