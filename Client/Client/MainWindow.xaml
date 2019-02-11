@@ -5,13 +5,17 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         xmlns:local="clr-namespace:Client"
+        xmlns:viewModel="clr-namespace:Client.ViewModels"
         mc:Ignorable="d"
-        Title="MainWindow" WindowStyle="None"  Height="450" Width="800" Background="#FF2C2C2C">
+        Title="MainWindow" WindowStyle="None"  Height="450" Width="800" Background="#FF2C2C2C" WindowState="{Binding WindowState, Mode=TwoWay}" MouseDown="DragWindow">
     <WindowChrome.WindowChrome>
         <WindowChrome CaptionHeight="0"/>
     </WindowChrome.WindowChrome>
-
-    <!--Tool Bar-->
+    <Window.DataContext>
+        <viewModel:MainWindowViewModel/>
+    </Window.DataContext>
+    <Grid>
+        <!--Tool Bar-->
     <StackPanel Orientation="Horizontal" VerticalAlignment="Top" Height="40" HorizontalAlignment="Right">
         <Button x:Name="Buttonla" Style="{StaticResource MaterialDesignFloatingActionMiniAccentButton}" Width="30" Height="30" Padding="0" Background="{x:Null}" BorderBrush="{x:Null}" Command="{Binding Minimize}" Foreground="#FFB52FBB">
             <materialDesign:PackIcon Kind="WindowMinimize" Foreground="White"/>
@@ -24,6 +28,7 @@
         </Button>
     </StackPanel>
     <!--end-->
-
-
+    
+    <Frame x:Name="MainFrame" Margin="0 40 0 0" NavigationUIVisibility="Visible" />
+    </Grid>
 </Window>

@@ -24,5 +24,11 @@ namespace Client
         {
             InitializeComponent();
         }
+        //move/drag windows
+        private void DragWindow(object sender, MouseButtonEventArgs e)
+        {
+            if (e.ChangedButton == MouseButton.Left)
+                this.DragMove();
+        }
     }
 }
