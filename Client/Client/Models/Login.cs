@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 
 namespace Client.Models
 {
@@ -41,5 +42,12 @@ namespace Client.Models
             }
         }
         #endregion
+
+        public void StartLogin()
+        {
+            MessageBox.Show(UserName + "\n" + Password);
+
+  
+        }
     }
 }

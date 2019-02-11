@@ -18,7 +18,7 @@ namespace Client.ViewModels
 
         public LoginViewModel()
         {
-            Login = new Login("shay", "");
+            Login = new Login("", "");
             LoginCommand = new MyCommand(func,canExecute);
         }
 
@@ -51,7 +51,8 @@ namespace Client.ViewModels
         {
             PasswordBox password = (PasswordBox)parameter;
             Login.Password = password.Password;
-            MessageBox.Show(Login.UserName + "\n" + Login.Password);
+            Login.StartLogin();
+            
         }
     }
 }
