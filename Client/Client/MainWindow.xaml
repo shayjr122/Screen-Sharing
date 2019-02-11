@@ -3,10 +3,27 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         xmlns:local="clr-namespace:Client"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
-    <Grid>
-        
-    </Grid>
+        Title="MainWindow" WindowStyle="None"  Height="450" Width="800" Background="#FF2C2C2C">
+    <WindowChrome.WindowChrome>
+        <WindowChrome CaptionHeight="0"/>
+    </WindowChrome.WindowChrome>
+
+    <!--Tool Bar-->
+    <StackPanel Orientation="Horizontal" VerticalAlignment="Top" Height="40" HorizontalAlignment="Right">
+        <Button x:Name="Buttonla" Style="{StaticResource MaterialDesignFloatingActionMiniAccentButton}" Width="30" Height="30" Padding="0" Background="{x:Null}" BorderBrush="{x:Null}" Command="{Binding Minimize}" Foreground="#FFB52FBB">
+            <materialDesign:PackIcon Kind="WindowMinimize" Foreground="White"/>
+        </Button>
+        <Button x:Name="Button" Style="{StaticResource MaterialDesignFloatingActionMiniAccentButton}" Width="30" Height="30" Padding="0" Background="{x:Null}" BorderBrush="{x:Null}" Command="{Binding Maximize}" Foreground="White">
+            <materialDesign:PackIcon Kind="WindowMaximize"/>
+        </Button>
+        <Button x:Name="ButtonClose" Style="{StaticResource MaterialDesignFloatingActionMiniAccentButton}" Width="30" Height="30" Padding="0" Background="{x:Null}" BorderBrush="{x:Null}" Command="{Binding Close}" Foreground="White">
+            <materialDesign:PackIcon Kind="Close"/>
+        </Button>
+    </StackPanel>
+    <!--end-->
+
+
 </Window>
