@@ -73,14 +73,28 @@ namespace Server
         }
         public void Start()
         {
+            Console.WriteLine("Start Listening...");
             TcpListener.Start();
             accepts = new Thread(StartAccept);
             accepts.Start();
         }
         private void StartAccept()
         {
-            while(true)
-            Clients.Add(TcpListener.AcceptSocket());
+            while (true)
+            {
+                Socket client = TcpListener.AcceptSocket();
+                Console.WriteLine("Accept Socket!");
+                byte[] arr = new byte[94000];
+                while (true)
+                {
+                    client.Receive(arr);
+                    Console.WriteLine("Receive");
+                    client.Send(arr);
+                    Console.WriteLine("Send");
+                }
+                Clients.Add(client);
+
+            }
         }
     }
 }
