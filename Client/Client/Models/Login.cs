@@ -26,7 +26,7 @@ namespace Client.Models
             }
             set
             {
-                value = _username;
+                 _username=value;
             }
         }
         public string Password
@@ -37,7 +37,7 @@ namespace Client.Models
             }
             set
             {
-                value = _password;
+                _password=value;
             }
         }
         #endregion

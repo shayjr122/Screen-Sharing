@@ -31,13 +31,8 @@ namespace Client.ViewModels
             }
             set
             {
-                value = _login;
+                _login = value;
                 OnPropertyChanged("Login");
-                if (Login != null)
-                {
-                    OnPropertyChanged("Login.Password");
-                    OnPropertyChanged("Login.UserName");
-                }
             }
         }
         public ICommand LoginCommand
@@ -48,7 +43,7 @@ namespace Client.ViewModels
             }
             set
             {
-                value = _loginCommand;
+                 _loginCommand = value;
             }
         }
         #endregion
