@@ -7,7 +7,7 @@
         xmlns:local="clr-namespace:Client"
         xmlns:viewModel="clr-namespace:Client.ViewModels"
         mc:Ignorable="d"
-        Title="MainWindow" WindowStyle="None"  Height="450" Width="800" Background="White" WindowState="{Binding WindowState, Mode=TwoWay}" MouseDown="DragWindow">
+        Title="MainWindow" WindowStyle="None"  Height="450" Width="800" Background="White" WindowState="{Binding WindowState, Mode=TwoWay}" MouseDown="DragWindow" Icon="/Icons/Icon.png" >
     <WindowChrome.WindowChrome>
         <WindowChrome CaptionHeight="40"/>
     </WindowChrome.WindowChrome>

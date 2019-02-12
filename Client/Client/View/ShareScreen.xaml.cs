@@ -1,5 +1,4 @@
-﻿using Client.View;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -14,23 +13,16 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace Client
+namespace Client.View
 {
     /// <summary>
-    /// Interaction logic for MainWindow.xaml
+    /// Interaction logic for ShareScreen.xaml
     /// </summary>
-    public partial class MainWindow : Window
+    public partial class ShareScreen : UserControl
     {
-        public MainWindow()
+        public ShareScreen()
         {
             InitializeComponent();
-            MainFrame.Content = new ShareScreen();
-        }
-        //move/drag windows
-        private void DragWindow(object sender, MouseButtonEventArgs e)
-        {
-            if (e.ChangedButton == MouseButton.Left)
-                this.DragMove();
         }
     }
 }

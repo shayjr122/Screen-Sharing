@@ -1,5 +1,5 @@
 ﻿using Client.ScreenSetting;
-using Client.Client;
+using Client.User;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
@@ -9,26 +9,49 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Media.Imaging;
 using System.Threading;
+using System.Windows.Media;
 
 namespace Client.Traffic
 {
     class TrafficManager
     {
-        private Client.Client _client;
+        private Client.User.Client _client;
         private System.Windows.Controls.Image _screen;
+        private Thread _shareScreen;
+        private bool _isShareAlive;
 
+     
         public TrafficManager(string server, int port, System.Windows.Controls.Image image)
         {
             Player = image;
-            Client = new Client.Client(server, port);
-            new Thread(ShareScreen).Start();
-            new Thread(GetScreen).Start();
+            Client = new Client.User.Client(server, port);
+            IsShareAlive = false;
 
-
+            
+        }
+        public void ShareScreen(int id, SessionType sessionType, MessageType messageType,bool client)// Session id
+        {
+            IsShareAlive = true;
+            if(ThreadShareScreen != null)
+            {
+                ThreadShareScreen.Abort();
+                ThreadShareScreen = null;
+            }
+            if (client)
+            {
+                
+                ThreadShareScreen = new Thread(ShareScreen);
+                ThreadShareScreen.Start();
+            }
+            else
+            {
+                ThreadShareScreen = new Thread(GetScreen);
+                ThreadShareScreen.Start();
+            }
         }
 
         #region Properties
-        public Client.Client Client
+        public Client.User.Client Client
         {
             get
             {
@@ -48,6 +71,28 @@ namespace Client.Traffic
             set
             {
                 _screen = value;
+            }
+        }
+        public Thread ThreadShareScreen
+        {
+            get
+            {
+                return _shareScreen;
+            }
+            set
+            {
+                _shareScreen = value;
+            }
+        }
+        public bool IsShareAlive
+        {
+            get
+            {
+                return _isShareAlive;
+            }
+            set
+            {
+                _isShareAlive = value;
             }
         }
         #endregion
@@ -73,7 +118,6 @@ namespace Client.Traffic
 
         public void GetScreen()
         {
-            JpegBitmapDecoder decoder;
             while (true)
             {
                 byte[] data = Receiver();
