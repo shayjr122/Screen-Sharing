@@ -84,12 +84,12 @@ namespace Server
             {
                 Socket client = TcpListener.AcceptSocket();
                 Console.WriteLine("Accept Socket!");
-                byte[] arr = new byte[94000];
+                byte[] arr = new byte[1000000];
                 while (true)
                 {
-                    client.Receive(arr);
+                    int size = client.Receive(arr);
                     Console.WriteLine("Receive");
-                    client.Send(arr);
+                    client.Send(arr,size,SocketFlags.None);
                     Console.WriteLine("Send");
                 }
                 Clients.Add(client);
