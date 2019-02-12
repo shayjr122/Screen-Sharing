@@ -7,18 +7,11 @@ using System.Threading.Tasks;
 
 namespace Client.Traffic
 {
-    public enum SessionType
-    {
-        ROOM = 0,
-        SHARE_SCREEN = 1,
-        CHAT = 2
-    }
-
     public enum MessageType
     {
-        STRING = 0,
+        ROOM_CHAT = 0,
         SHARE_SCREEN = 1,
-        PIC = 2
+        CHAT = 2
     }
 
     public class Packet
@@ -26,17 +19,15 @@ namespace Client.Traffic
         // Header
         private int _id;// Session id
         private string _userName;// How send this message
-        private SessionType _sessionType;// Session type
         private MessageType _messageType;// Message type
 
         // body
         private byte[] _body;
 
-        public Packet(int id, string userName, SessionType sessionType, MessageType messageType, byte[] body)
+        public Packet(int id, string userName, MessageType messageType, byte[] body)
         {
             Id = id;
             UserName = userName;
-            SessionType = sessionType;
             MessageType = messageType;
             Body = body;
         }
@@ -62,17 +53,6 @@ namespace Client.Traffic
             set
             {
                 _userName = value;
-            }
-        }
-        public SessionType SessionType
-        {
-            get
-            {
-                return _sessionType;
-            }
-            set
-            {
-                _sessionType = value;
             }
         }
         public MessageType MessageType

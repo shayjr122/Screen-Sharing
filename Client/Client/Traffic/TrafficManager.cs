@@ -29,24 +29,34 @@ namespace Client.Traffic
 
             
         }
-        public void ShareScreen(int id, SessionType sessionType, MessageType messageType,bool client)// Session id
+        public void ShareScreen(int sessionID, string userName, MessageType messageType, bool client = true)// Session id
         {
-            IsShareAlive = true;
-            if(ThreadShareScreen != null)
+            switch (messageType)
             {
-                ThreadShareScreen.Abort();
-                ThreadShareScreen = null;
-            }
-            if (client)
-            {
-                
-                ThreadShareScreen = new Thread(ShareScreen);
-                ThreadShareScreen.Start();
-            }
-            else
-            {
-                ThreadShareScreen = new Thread(GetScreen);
-                ThreadShareScreen.Start();
+                case MessageType.SHARE_SCREEN: 
+                        IsShareAlive = true;
+                        if (ThreadShareScreen != null)
+                        {
+                            ThreadShareScreen.Abort();
+                            ThreadShareScreen = null;
+                        }
+                        if (client)
+                        {
+
+                            ThreadShareScreen = new Thread(() => ShareScreen(sessionID, userName));
+                            ThreadShareScreen.Start();
+                        }
+                        else
+                        {
+                            ThreadShareScreen = new Thread(GetScreen);
+                            ThreadShareScreen.Start();
+                        }
+
+                        break;
+                case MessageType.CHAT:
+                    break;
+                case MessageType.ROOM_CHAT:
+                    break;
             }
         }
 
@@ -98,7 +108,7 @@ namespace Client.Traffic
         #endregion
 
 
-        public void ShareScreen()
+        public void ShareScreen(int sessionID,string userName)
         {
             JpegBitmapEncoder encoder;
             while (true)
@@ -110,8 +120,8 @@ namespace Client.Traffic
                 MemoryStream ms = new MemoryStream();
                 encoder.Save(ms);
                 data = ms.ToArray();
-                Sender(data);
-                //Thread.Sleep(300);
+                Packet packet = new Packet(sessionID,userName,MessageType.SHARE_SCREEN, data);
+                Sender(packet);
             }
 
         }
@@ -120,7 +130,7 @@ namespace Client.Traffic
         {
             while (true)
             {
-                byte[] data = Receiver();
+                byte[] data = Receiver().Body;
                 if (data != null)
                 {
                     MemoryStream ms = new MemoryStream();
@@ -163,17 +173,14 @@ namespace Client.Traffic
             }
         }
 
-        private void Sender(byte[] data)
+        private void Sender(Packet packet)
         {
-            Packet packet = new Packet(2, "shay", SessionType.SHARE_SCREEN, MessageType.SHARE_SCREEN, data);
             Client.Writer.Write(packet);
         }
 
-        private byte[] Receiver()
+        private Packet Receiver()
         {
-            Packet packet = Client.Reader.Read();
-            return packet.Body;
-
+            return Client.Reader.Read();
         }
 
 
